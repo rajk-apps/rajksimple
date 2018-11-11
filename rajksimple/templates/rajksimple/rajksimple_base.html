@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Rajk Támogatási Felület{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "rajksimple/css/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "rajksimple/css/style.css" %}">
+  <style>
+  body{
+    background-image: url('{% static 'rajksimple/img/bg.jpg' %}');
+    }
+  </style>
+  {% block head %}
+  
+  {% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="opacity:0.9">
+    <div class="container justify-content-center">
+        <div class="nav navbar-nav flex-fill justify-content-center">
+                <div class="row" style="width:100%">
+                    <div class="col-6" style="text-align:right;border-right: 3px solid #3fb561;">
+                        <a class="navbar-brand" href="{% url 'rajksimple:home' %}">
+                            <img id="logo" src="{% static 'rajksimple/img/small_logo.png' %}" width="80">
+                        </a>
+                    </div>
+                    <div class="col-6" style="text-align:left; border-left: 3px solid #3fb561;padding:5px;padding-lef:10px">
+                        <h3 style="margin:0;padding-left: 20px">Támogatási Felület</h3>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    </nav>
+
+
+{% block content %}
+
+{% endblock %}
+
+<script src="{% static "rajksimple/js/jquery.min.js" %}"></script>
+<script src="{% static "rajksimple/js/bootstrap.min.js" %}"></script>
+
+{% block endbody %}
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'rajksimple/rajksimple_base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Megerősítés</h2>
+    <div class="row">
+        {% for d in disp %}
+        <div class="col-3">
+            <h4> {{ d }} </h4>
+        </div>
+        {% endfor %}
+    </div>
+    <div class ="row">
+        <div class="col">
+            <form method="post" action="https://sandbox.simplepay.hu/payment/order/lu.php"> <!-- sandbox/secure -->
+            <!--<form method="post" action="{% url 'rajksimple:ipn' %}">
+            {% csrf_token %}-->
+            <input type="hidden" name="BACK_REF" value="{{ request.get_host }}{% url 'rajksimple:backref' orderid %}">
+            <input type="hidden" name="TIMEOUT_URL" value="{{ request.get_host }}{% url 'rajksimple:backref' orderid %}">
+            {% for key, value in req.items %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endfor %}
+            <input type="submit" value="Megerősítés">
+            </form>
+        </div>
+    </div>
+    <div class ="row">
+        <div class="col">
+            <p> 
+            {% load static %}
+            A megerősítés gomb megnyomásával elfogadom az <a href="{% static 'rajksimple/terms.html' %}">általános szerződési feltételeket</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
