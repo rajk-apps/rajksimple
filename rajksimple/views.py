@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 import hmac
 import datetime
 import random
@@ -22,8 +23,12 @@ def accountview(request,account_id):
 
 #@login_required
 def home(request):
+    try:
+        mainconf = Config.objects.first()
+    except:
+        raise Http404("Not yet configured")
     return accountview(request,
-                   Config.objects.first().default_acc.id)
+                   mainconf.default_acc.id)
 
 
 def backref(request,orderid):
