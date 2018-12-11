@@ -9,11 +9,12 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='rajksimple',
-    version='0.0.1',
+    version='0.0.2',
     packages=find_packages(),
     include_package_data=True,
     license='MIT License',
     description='OTP Simple Django app',
+    url='https://github.com/rajk-apps/rajksimple',
     long_description=README,
     author='Endre Márk Borza',
     author_email='endremborza@gmail.com',
