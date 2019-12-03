@@ -11,10 +11,8 @@ doc_dir_name = "docs"
 doc_notebooks_dir = "notebooks"
 
 
-
 @task
-def build_docs(c):
-
+def build(c):
 
     c.run(
         'sphinx-quickstart {} -p {} -a "{}" -q --ext-autodoc'.format(
@@ -75,4 +73,3 @@ API
     c.run("cp -r docs_config/* docs/")
     c.run("pip install -r docs/requirements.txt")
     c.run("sphinx-build docs docs/_build")
-
