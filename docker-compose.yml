@@ -3,24 +3,18 @@ services:
    devcont:
      build:
        context: .
-       dockerfile: Dockerfile
+       dockerfile: dev.Dockerfile
        args:
-         APP_NAME: teach
-         DJANGO_PROJECT: teach_project
+         APP_NAME: ${APP_NAME}
+         DJANGO_PROJECT: ${DJANGO_PROJECT}
          HOST_IP: ${HOST_IP}
          APP_PORT: ${APP_PORT}
-     image: teach:v0
+     image: ${APP_NAME}:dev
      stdin_open: true
      tty: true
      ports:
-       - "${HOST_IP}:8888:8888"
        - "${HOST_IP}:${APP_PORT}:${APP_PORT}"
      volumes:
-       - ./teach:${PYTHON_PACKAGES_PATH}/teach
-       - ./tests:/tests
-       - ./jupyter_extensions/config:/root/.jupyter
-       - ./jupyter_extensions/notebook_extension:/usr/local/share/jupyter/nbextensions/notebook_extension
-       - ./jupyter_extensions/server_extension:${PYTHON_PACKAGES_PATH}/server_extension
+       - ./${APP_NAME}:/${DJANGO_PROJECT}/${APP_NAME}
      environment:
        - PORT_NO=${APP_PORT}
-       - INIT_DATA=/tests/test_data/teach.json
