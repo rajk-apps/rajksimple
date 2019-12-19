@@ -1,6 +1,6 @@
 from invoke import task
 
-from .vars import package_name
+from .vars import package_name, boilerplate_branch
 
 
 @task
@@ -19,7 +19,7 @@ def clean(c):
 @task
 def update_boilerplate(c, drop=False):
     c.run("git fetch boilerplate")  # TODO: this knows the name of the remote
-    c.run("git merge boilerplate/django-app --no-edit")
+    c.run("git merge boilerplate/{} --no-edit".format(boilerplate_branch))
     if drop:
         c.run("rm -rf mydjangoapp")
         c.run("rm -rf mypackage")
