@@ -18,7 +18,7 @@ def clean(c):
 
 @task
 def update_boilerplate(c, drop=False):
-    c.run("git fetch boilerplate")
+    c.run("git fetch boilerplate")  # TODO: this knows the name of the remote
     c.run("git merge boilerplate/django-app --no-edit")
     if drop:
         c.run("rm -rf mydjangoapp")
