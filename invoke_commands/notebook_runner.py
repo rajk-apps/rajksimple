@@ -10,4 +10,5 @@ class MyManager(KernelSpecManager):
         return init_resp
 
 
-main(kernel_spec_manager_class=MyManager)
+if __name__ == "__main__":
+    main(kernel_spec_manager_class=MyManager)
