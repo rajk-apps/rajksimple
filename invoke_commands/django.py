@@ -14,12 +14,3 @@ def setup_dev(c):
 @task
 def clean(c):
     c.run("rm -{}/migrations/*".format(package_name))
-
-
-@task
-def update_boilerplate(c, drop=False):
-    c.run("git fetch boilerplate")  # TODO: this knows the name of the remote
-    c.run("git merge boilerplate/{} --no-edit".format(boilerplate_branch))
-    if drop:
-        c.run("rm -rf mydjangoapp")
-        c.run("rm -rf mypackage")
