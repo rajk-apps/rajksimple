@@ -1,0 +1,12 @@
+egg
+twine
+jupyter
+black
+sphinx
+invoke
+pytest
+pytest-cov
+codecov
+toml
+flake8
+django
