@@ -6,63 +6,69 @@
         {% for a in accounts %}
             <div class="col text-center" style="padding:10px;">
                 <div style="background: rgba(220, 220, 220, 0.8);border: 3px solid #3fb561">
-                    <a href="{% url 'rajksimple:account' a.id  %}"><h4 style="padding:9px">{{ a.description }}</h4></a>
+                    <a href="{% url 'rajksimple:account' a.id  %}"><h4 style="padding:9px">{{ a.name }}</h4></a>
                 </div>
                 <hr>
             </div>
         {% endfor %}
     </div>
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-12 text-center" style="height:160px">
-            <h3>{{ accinst.name }}</h3>
+    {% if accinst %}
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-12 text-center" style="height:160px">
+                <h3>{{ accinst.name }}</h3>
+                {% if accinst.description %}
+                    <p>
+                        {{ accinst.description }}
+                    </p>
+                {% endif %}
+            </div>
         </div>
-    </div>
-    <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-8">
-            <form method="post" class="form-style-7" action="{% url 'rajksimple:confirm' %}">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-6">
-                        <ul>
-                            <input type="hidden" name="account" value="{{accinst.id}}">
-                            {% for f in form %}
-                                {% if forloop.counter < 3 %}
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-8">
+                <form method="post" class="form-style-7" action="{% url 'rajksimple:confirm' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-6">
+                            <ul>
+                                <input type="hidden" name="account" value="{{accinst.id}}">
+                                {% for f in form %}
+                                    {% if forloop.counter < 3 %}
+                                    <li>
+                                        {{f.label_tag }}
+                                        {{ f }}
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul>
+                                {% for f in form %}
+                                    {% if forloop.counter >= 3 %}
+                                    <li>
+                                        {{f.label_tag }}
+                                        {{ f }}
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                                <li></li>
+                            </ul>
+                        </div>
+
+
+                        <div class="col-12">
+                            <ul>
                                 <li>
-                                    {{f.label_tag }}
-                                    {{ f }}
+                                    <input type="submit" value="{{ accinst.submittext }}">
                                 </li>
-                                {% endif %}
-                            {% endfor %}
-                            <li></li>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <ul>
-                            <input type="hidden" name="account" value="{{accinst.id}}">
-                            {% for f in form %}
-                                {% if forloop.counter >= 3 %}
-                                <li>
-                                    {{f.label_tag }}
-                                    {{ f }}
-                                </li>
-                                {% endif %}
-                            {% endfor %}
-                            <li></li>
-                        </ul>
-                    </div>
-                    
-                    
-                    <div class="col-12">
-                        <ul>
-                            <li>
-                                <input type="submit" value="{{ accinst.submittext }}">
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
-        
+                </form>
+
+            </div>
         </div>
-    </div>
+    {% endif %}
 </div>
 {% endblock %}

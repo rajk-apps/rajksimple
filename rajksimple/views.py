@@ -1,20 +1,22 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
 import hmac
 import datetime
 import random
-
-# from django.contrib.auth.decorators import login_required
 
 from .models import *
 from django.http import HttpResponse
 
 
 def accountview(request, account_id):
-    account_inst = get_object_or_404(Account, id=account_id)
+    if account_id is None:
+        account_inst = None
+        causes = []
+        form = None
+    else:
+        account_inst = get_object_or_404(Account, id=account_id)
+        causes = account_inst.cause_set.all()
+        form = TransactionForm(account=account_id)
     accounts = Account.objects.get_queryset()
-    causes = account_inst.cause_set.all()
-    form = TransactionForm(account=account_id)
     return render(
         request,
         "rajksimple/account.html",
@@ -22,13 +24,14 @@ def accountview(request, account_id):
     )
 
 
-# @login_required
 def home(request):
-    try:
-        mainconf = Config.objects.first()
-    except:
-        raise Http404("Not yet configured")
-    return accountview(request, mainconf.default_acc.id)
+    accounts = Account.objects.order_by('order_num')
+    first_acc = accounts.first()
+    if first_acc is not None:
+        acc_id = first_acc.id
+    else:
+        acc_id = None
+    return accountview(request, acc_id)
 
 
 def backref(request, orderid):
@@ -89,7 +92,7 @@ def confirm(request):
         random.randint(1000, 9999)
     )
 
-    form = TransactionForm(request.POST)
+    form = TransactionForm(request.POST, account_id=acc.id)
     newtrans = form.save(commit=False)
     newtrans.id = orderid
     newtrans.save()
