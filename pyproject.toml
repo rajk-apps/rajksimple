@@ -6,6 +6,6 @@ authors = [
 ]
 license = "MIT"
 readme = "README.md"
-python = ">=3.7"
+python = ">=3.6"
 url = "https://github.com/endremborza/mypackage"
 keywords="boilerplate"
