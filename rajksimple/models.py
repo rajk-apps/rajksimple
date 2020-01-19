@@ -62,6 +62,7 @@ class Transaction(models.Model):
 
 class TransactionForm(ModelForm):
     def __init__(self, *args, **kwargs):
+
         acc_id = kwargs.pop("account_id")
         super().__init__(*args, **kwargs)
 

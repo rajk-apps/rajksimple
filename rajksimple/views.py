@@ -15,7 +15,7 @@ def accountview(request, account_id):
     else:
         account_inst = get_object_or_404(Account, id=account_id)
         causes = account_inst.cause_set.all()
-        form = TransactionForm(account=account_id)
+        form = TransactionForm(account_id=account_id)
     accounts = Account.objects.get_queryset()
     return render(
         request,
