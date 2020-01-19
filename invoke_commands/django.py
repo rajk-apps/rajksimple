@@ -14,4 +14,5 @@ def setup_dev(c):
 @task
 def clean(c):
     c.run("rm -rf {}/migrations/*".format(package_name))
+    c.run("docker kill {}_devcont_1".format(package_name))
     c.run("docker container rm {}_devcont_1".format(package_name))
