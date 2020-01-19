@@ -30,7 +30,7 @@ class Cause(models.Model):
     id = models.CharField(max_length=15, primary_key=True)
     name = models.TextField()
     description = models.TextField()
-    default_price = models.PositiveIntegerField()
+    default_price = models.PositiveIntegerField(null=True, blank=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     def __str__(self):
