@@ -24,7 +24,9 @@ def new(c):
             current_release_path = "docs_config/current_release.rst"
             with open(current_release_path) as fp:
                 notes = fp.read()
-            with open("docs_config/release_notes/{}.rst".format(tag_version),"w") as fp:
+            with open(
+                "docs_config/release_notes/{}.rst".format(tag_version), "w"
+            ) as fp:
                 fp.write(notes)
             c.run("git tag -a {} -m {}".format(tag_version, notes))
             c.run("python setup.py sdist")
