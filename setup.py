@@ -22,7 +22,7 @@ with open("README.md") as fp:
     long_description = fp.read()
 
 with open("requirements.txt") as fp:
-    requirements = fp.read().strip().split()
+    requirements = [p for p in fp.read().strip().split() if ("git+" not in p)]
 
 if __name__ == "__main__":
     setup(
@@ -36,9 +36,7 @@ if __name__ == "__main__":
         keywords=pytom["project"].get("keywords"),
         author=author_name,
         packages=[p for p in find_packages() if p != "invoke_commands"],
-        data_files=[
-            ('out', data_files),
-        ],
+        data_files=[("out", data_files),],
         include_package_data=True,
         python_requires=pytom["project"]["python"],
         platforms="any",
