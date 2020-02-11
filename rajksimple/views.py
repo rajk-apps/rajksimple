@@ -4,6 +4,7 @@ import datetime
 import random
 
 from .models import *
+from .constants import HOST_ADDRESS
 from django.http import HttpResponse
 
 
@@ -149,5 +150,6 @@ def confirm(request):
     return render(
         request,
         "rajksimple/confirm.html",
-        {"req": postreq, "disp": disp, "orderid": orderid},
+        {"req": postreq, "disp": disp, "orderid": orderid,
+         "host_address": HOST_ADDRESS},
     )
