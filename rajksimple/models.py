@@ -47,17 +47,23 @@ class Transaction(models.Model):
 
     REPS = MARKUP_CHOICES = [
         (0, "Egyszeri"),
-        (1, "Havonta"),
-        (3, "Negyedévente"),
-        (6, "Félévente"),
-        (12, "Évente"),
+        #(1, "Havonta"),
+        #(3, "Negyedévente"),
+        #(6, "Félévente"),
+        #(12, "Évente"),
     ]
 
     repetition = models.IntegerField(choices=REPS, default=0)
     token = models.CharField(max_length=200, null=True, blank=True)
 
-    def __str(self):
-        return self.name
+    STATUSES = [(k, k) for k in ["pending", "confirmed", "denied"]]
+
+    status = models.CharField(max_length=10, choices=STATUSES, default="pending")
+
+    confirm_date = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.cause} - {self.amount} - {self.email} - {self.status} - {self.confirm_date}"
 
 
 class TransactionForm(ModelForm):

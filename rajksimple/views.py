@@ -6,6 +6,7 @@ import random
 from .models import *
 from .constants import HOST_ADDRESS
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 def accountview(request, account_id):
@@ -39,9 +40,22 @@ def backref(request, orderid):
 
     acdate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    RC = request.POST.get("payrefno", "")
+    acc = Transaction.objects.get(id=orderid).cause.account
+
+    RC = request.GET.get("RC", "")
 
     succ = (RC[:3] == "000") or (RC[:3] == "001")
+
+    cut_url = f"{HOST_ADDRESS}{request.get_full_path()}"[:-38]
+
+    validate_hash_base = f"{len(bytes(cut_url, 'utf-8'))}{cut_url}"
+
+    validate_digest = hmac.new(acc.secret_key.encode("utf-8"))
+    validate_digest.update(validate_hash_base.encode("utf-8"))
+    validate_hash = validate_digest.hexdigest()
+
+    if validate_hash != request.GET.get("ctrl", ""):
+        succ = False
 
     return render(
         request,
@@ -55,13 +69,36 @@ def backref(request, orderid):
     )
 
 
+@csrf_exempt
 def ipn(request):
 
-    acc = Account.objects.get(merchid=request.POST.get("MERCHANT", ""))
+    transaction = Transaction.objects.get(id=request.POST.get("REFNOEXT", ""))
+    acc = transaction.cause.account
 
-    keylist = ["IPN_PID[0]", "IPN_PNAME[0]", "IPN_DATE", "DATE"]
+    validate_hash_base = ""
 
-    print(request.POST)
+    for k, v in request.POST.items():
+        if k != "HASH":
+            validate_hash_base += str(len(bytes(v, "utf-8")))
+            validate_hash_base += str(v)
+
+    validate_digest = hmac.new(acc.secret_key.encode("utf-8"))
+    validate_digest.update(validate_hash_base.encode("utf-8"))
+    validate_hash = validate_digest.hexdigest()
+
+    if validate_hash != request.POST["HASH"]:
+        transaction.status = "denied"
+        transaction.confirm_date = datetime.datetime.now()
+        transaction.save()
+        return HttpResponse(validate_hash)
+
+
+    transaction.status = "confirmed"
+    transaction.token = request.POST.get("TOKEN")
+    transaction.confirm_date = datetime.datetime.now()
+    transaction.save()
+
+    keylist = ["IPN_PID[]", "IPN_PNAME[]", "IPN_DATE", "DATE"]
 
     postreq = {}
 
@@ -76,11 +113,10 @@ def ipn(request):
         source_string += str(len(bytes(postreq[k], "utf-8")))
         source_string += postreq[k]
 
-    digest = hmac.new(acc.secret_key)
-    digest.update(source_string)
+    digest = hmac.new(acc.secret_key.encode("utf-8"))
+    digest.update(source_string.encode("utf-8"))
     hash = digest.hexdigest()
-
-    return HttpResponse("<EPAYMENT>" + str(hash) + "</EPAYMENT>")
+    return HttpResponse(f"<EPAYMENT>{postreq['DATE']}|{hash}</EPAYMENT>")
 
 
 def confirm(request):

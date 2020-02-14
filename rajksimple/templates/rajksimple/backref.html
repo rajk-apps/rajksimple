@@ -3,11 +3,13 @@
 {% block content %}
 <div class="container">
     {% if succ %}
-    <h2>Sikertelen tranzakció.</h2>
+    <h2>Sikeres tranzakció.</h2>
     Köszönjük a támogatást!
     {% else %}
     <h2>Sikertelen tranzakció.</h2>
-    Kérjük, ellenőrizze a tranzakció során megadott adatok helyességét. Amennyiben minden adatot helyesen adott meg, a visszautasítás okának kivizsgálása kapcsán kérjük, szíveskedjen kapcsolatba lépni kártyakibocsátó bankjával.
+    Kérjük, ellenőrizze a tranzakció során megadott adatok helyességét.
+    Amennyiben minden adatot helyesen adott meg, a visszautasítás okának kivizsgálása kapcsán kérjük,
+    szíveskedjen kapcsolatba lépni kártyakibocsátó bankjával.
     {% endif %}
     <hr>
     SimplePay referenciaszám: {{ payrefno }}
