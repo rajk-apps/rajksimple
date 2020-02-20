@@ -1,11 +1,21 @@
-import io
 from invoke import task
+import io
 
 from .vars import mymodule
 
 
 @task
 def new(c):
+
+    version = mymodule.__version__
+
+    c.run("python setup.py sdist")
+    c.run("twine check dist/*")
+    c.run("twine upload dist/*{}.tar.gz".format(version))
+
+
+@task
+def tag(c):
 
     version = mymodule.__version__
 
@@ -29,9 +39,6 @@ def new(c):
             ) as fp:
                 fp.write(notes)
             c.run("git tag -a {} -m {}".format(tag_version, notes))
-            c.run("python setup.py sdist")
-            c.run("twine check dist/*")
-            c.run("twine upload dist/*{}.tar.gz".format(version))
             with open(current_release_path, "w") as fp:
                 fp.write("")
         else:
