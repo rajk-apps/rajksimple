@@ -1,11 +1,21 @@
-import io
 from invoke import task
+import io
 
 from .vars import mymodule
 
 
 @task
 def new(c):
+
+    version = mymodule.__version__
+
+    c.run("python setup.py sdist")
+    c.run("twine check dist/*")
+    c.run("twine upload dist/*{}.tar.gz".format(version))
+
+
+@task
+def tag(c):
 
     version = mymodule.__version__
 
@@ -21,13 +31,16 @@ def new(c):
         tags = f2.getvalue().split()
         print(tags)
         if tag_version not in tags:
-            with open("docs_config/current_release.rst") as fp:
+            current_release_path = "docs_config/current_release.rst"
+            with open(current_release_path) as fp:
                 notes = fp.read()
-            # TODO: remove this file, move to rlease_notes, and add to the end of main.rst
+            with open(
+                "docs_config/release_notes/{}.rst".format(tag_version), "w"
+            ) as fp:
+                fp.write(notes)
             c.run("git tag -a {} -m {}".format(tag_version, notes))
-            c.run("python setup.py sdist")
-            c.run("twine check dist/*")
-            c.run("twine upload dist/*{}.tar.gz".format(version))
+            with open(current_release_path, "w") as fp:
+                fp.write("")
         else:
             print("{} version already tagged".format(tag_version))
     else:
