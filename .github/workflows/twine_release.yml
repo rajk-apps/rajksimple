@@ -21,6 +21,7 @@ jobs:
         pip install -r requirements.txt
     - name: Release
       env:
-        TWINE_CERT: ${{ secrets.TWINE_CERT }}
+        PYPI_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        PYPI_USER: '__token__'
       run: |
         inv release.new
