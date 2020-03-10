@@ -19,7 +19,7 @@ def new(c):
     pypirc_path = os.path.join(os.path.expanduser('~'), ".pypirc")
 
     if not os.path.exists(pypirc_path):
-        with open(pypirc_path) as fp:
+        with open(pypirc_path, "w") as fp:
             fp.write(pypirc_str)
 
     c.run("python setup.py sdist")
