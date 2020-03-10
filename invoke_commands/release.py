@@ -24,7 +24,7 @@ def new(c):
 
     c.run("python setup.py sdist")
     c.run("twine check dist/*")
-    c.run("twine upload dist/*{}.tar.gz".format(version))
+    c.run(f"twine upload dist/*{version}.tar.gz --non-interactive --config-file {pypirc_path}")
 
 
 @task
