@@ -38,7 +38,7 @@ def tag(c):
                 "docs_config/release_notes/{}.rst".format(tag_version), "w"
             ) as fp:
                 fp.write(notes)
-            c.run("git tag -a {} -m {}".format(tag_version, notes))
+            c.run(f"git tag -a {tag_version} -m '{notes}'")
             with open(current_release_path, "w") as fp:
                 fp.write("")
         else:
