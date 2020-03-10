@@ -22,7 +22,7 @@ jobs:
         pip install -r requirements.txt
     - name: Release
       env:
-        PYPI_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        PYPI_USER: '__token__'
+        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        TWINE_USER: '__token__'
       run: |
         inv release.new
