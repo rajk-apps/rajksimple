@@ -12,6 +12,7 @@ keywords="boilerplate"
 [build-system]
 requires = [
     "toml >= 0.10.0",
-    "setuptools >= 35.0.2",
+    "setuptools >= 38.6.0",
+    "wheel >= 0.31.0",
     "setuptools_scm >= 2.0.0, <3"
 ]
