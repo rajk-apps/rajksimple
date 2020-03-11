@@ -1,6 +1,5 @@
 from invoke import task
 import io
-import os
 
 from .vars import mymodule
 
@@ -10,21 +9,9 @@ def new(c):
 
     version = mymodule.__version__
 
-    pypirc_str = "\n".join([
-        "[pypi]"
-        "  username = __token__"
-        f"  password = {os.environ['TWINE_PASSWORD']}"
-    ])
-
-    pypirc_path = os.path.join(os.path.expanduser('~'), ".pypirc")
-
-    if not os.path.exists(pypirc_path):
-        with open(pypirc_path, "w") as fp:
-            fp.write(pypirc_str)
-
     c.run("python setup.py sdist")
     c.run("twine check dist/*")
-    c.run(f"twine upload dist/*{version}.tar.gz --non-interactive --config-file {pypirc_path}")
+    c.run(f"twine upload dist/*{version}.tar.gz -u __token__ -p $TWINE_PASSWORD")
 
 
 @task
