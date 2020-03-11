@@ -11,7 +11,7 @@ def hello(request):
 def question_list(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
     context = {"latest_question_list": latest_question_list}
-    return render(request, "mydjangoapp/index.html", context)
+    return render(request, "mypackage/index.html", context)
 
 
 def detail(request, question_id):

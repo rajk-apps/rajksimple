@@ -1,5 +1,5 @@
 [project]
-name = "mydjangoapp"
+name = "mypackage"
 description = "Template django app"
 authors = [
     "Endre Márk Borza"

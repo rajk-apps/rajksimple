@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = "mydjangoapp"
+app_name = "mypackage"
 urlpatterns = [
     path("", views.question_list, name="index"),
     path("<int:question_id>/", views.detail, name="detail"),
