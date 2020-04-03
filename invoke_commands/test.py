@@ -33,9 +33,7 @@ def test(c, option="", html=False, xml=False, notebook_tests=True):
             if len(nb_code) > 0:
                 new_test_scripts.append(
                     f"def test_nb_integration_{nb_idx}():\n"
-                    + "\n".join(
-                        [f"    {s}" for s in nb_code.split("\n")]
-                    )
+                    + "\n".join([f"    {s}" for s in nb_code.split("\n")])
                 )
 
         test_root = os.path.join(package_name, "tests")
