@@ -5,7 +5,7 @@ from .vars import package_name, boilerplate_branch
 @task
 def lint(c):
     c.run("black . -l 79 --exclude \.*venv")
-    c.run(f"isort -rc {package_name}")
+    c.run(f"isort -rc {package_name} -m 3")
     c.run(f"flake8 {package_name}")
 
 
