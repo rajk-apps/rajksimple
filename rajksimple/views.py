@@ -22,12 +22,17 @@ def accountview(request, account_id):
     return render(
         request,
         "rajksimple/account.html",
-        {"causes": causes, "accounts": accounts, "accinst": account_inst, "form": form},
+        {
+            "causes": causes,
+            "accounts": accounts,
+            "accinst": account_inst,
+            "form": form,
+        },
     )
 
 
 def home(request):
-    accounts = Account.objects.order_by('order_num')
+    accounts = Account.objects.order_by("order_num")
     first_acc = accounts.first()
     if first_acc is not None:
         acc_id = first_acc.id
@@ -92,7 +97,6 @@ def ipn(request):
         transaction.confirm_date = datetime.datetime.now()
         transaction.save()
         return HttpResponse(validate_hash)
-
 
     transaction.status = "confirmed"
     transaction.token = request.POST.get("TOKEN")
@@ -187,6 +191,11 @@ def confirm(request):
     return render(
         request,
         "rajksimple/confirm.html",
-        {"req": postreq, "disp": disp, "orderid": orderid,
-         "host_address": HOST_ADDRESS, "is_live": acc.is_live},
+        {
+            "req": postreq,
+            "disp": disp,
+            "orderid": orderid,
+            "host_address": HOST_ADDRESS,
+            "is_live": acc.is_live,
+        },
     )

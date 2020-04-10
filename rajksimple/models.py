@@ -48,10 +48,10 @@ class Transaction(models.Model):
 
     REPS = MARKUP_CHOICES = [
         (0, "Egyszeri"),
-        #(1, "Havonta"),
-        #(3, "Negyedévente"),
-        #(6, "Félévente"),
-        #(12, "Évente"),
+        # (1, "Havonta"),
+        # (3, "Negyedévente"),
+        # (6, "Félévente"),
+        # (12, "Évente"),
     ]
 
     repetition = models.IntegerField(choices=REPS, default=0)
@@ -59,7 +59,9 @@ class Transaction(models.Model):
 
     STATUSES = [(k, k) for k in ["pending", "confirmed", "denied"]]
 
-    status = models.CharField(max_length=10, choices=STATUSES, default="pending")
+    status = models.CharField(
+        max_length=10, choices=STATUSES, default="pending"
+    )
 
     confirm_date = models.DateTimeField(blank=True, null=True)
 

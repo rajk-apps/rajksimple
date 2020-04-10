@@ -8,6 +8,7 @@
     "secret_key": "abc",
     "merchid": "xyz",
     "order_num": 1,
+    "is_live": false,
     "default_cause": "c2",
     "submittext": "Bankk\u00e1rty\u00e1s Fizet\u00e9s"
   }
