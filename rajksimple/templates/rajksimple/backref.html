@@ -2,14 +2,19 @@
 
 {% block content %}
 <div class="container">
-    {% if succ %}
-    <h2>Sikeres tranzakció.</h2>
-    Köszönjük a támogatást!
+    {% if cancelled %}
+        <h2>Megszakított tranzakció.</h2>
+        Megszakította a tranzakciót!
     {% else %}
-    <h2>Sikertelen tranzakció.</h2>
-    Kérjük, ellenőrizze a tranzakció során megadott adatok helyességét.
-    Amennyiben minden adatot helyesen adott meg, a visszautasítás okának kivizsgálása kapcsán kérjük,
-    szíveskedjen kapcsolatba lépni kártyakibocsátó bankjával.
+        {% if succ %}
+        <h2>Sikeres tranzakció.</h2>
+        Köszönjük a támogatást!
+        {% else %}
+        <h2>Sikertelen tranzakció.</h2>
+        Kérjük, ellenőrizze a tranzakció során megadott adatok helyességét.
+        Amennyiben minden adatot helyesen adott meg, a visszautasítás okának kivizsgálása kapcsán kérjük,
+        szíveskedjen kapcsolatba lépni kártyakibocsátó bankjával.
+        {% endif %}
     {% endif %}
     <hr>
     SimplePay referenciaszám: {{ payrefno }}

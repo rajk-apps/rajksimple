@@ -10,6 +10,7 @@ class Account(models.Model):
     secret_key = models.CharField(max_length=100)
     merchid = models.CharField(max_length=100)
     order_num = models.IntegerField(default=1)
+    is_live = models.BooleanField(default=False)
 
     default_cause = models.ForeignKey(
         "Cause",

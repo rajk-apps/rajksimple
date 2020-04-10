@@ -12,7 +12,7 @@
     </div>
     <div class ="row">
         <div class="col">
-            <form method="post" action="https://sandbox.simplepay.hu/payment/order/lu.php"> <!-- sandbox/secure -->
+            <form method="post" action="https://{% if is_live %}secure{% else %}sandbox{% endif %}.simplepay.hu/payment/order/lu.php"> <!-- sandbox/secure -->
             <!--<form method="post" action="{% url 'rajksimple:ipn' %}">
             {% csrf_token %}-->
             <input type="hidden" name="BACK_REF" value="{{ host_address }}{% url 'rajksimple:backref' orderid %}">

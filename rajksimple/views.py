@@ -42,9 +42,9 @@ def backref(request, orderid):
 
     acc = Transaction.objects.get(id=orderid).cause.account
 
-    RC = request.GET.get("RC", "")
+    rc = request.GET.get("RC", "cancelled")
 
-    succ = (RC[:3] == "000") or (RC[:3] == "001")
+    succ = (rc[:3] == "000") or (rc[:3] == "001")
 
     cut_url = f"{HOST_ADDRESS}{request.get_full_path()}"[:-38]
 
@@ -64,6 +64,7 @@ def backref(request, orderid):
             "orderid": orderid,
             "payrefno": request.GET.get("payrefno", ""),
             "succ": succ,
+            "cancelled": (rc == "cancelled"),
             "date": acdate,
         },
     )
@@ -187,5 +188,5 @@ def confirm(request):
         request,
         "rajksimple/confirm.html",
         {"req": postreq, "disp": disp, "orderid": orderid,
-         "host_address": HOST_ADDRESS},
+         "host_address": HOST_ADDRESS, "is_live": acc.is_live},
     )

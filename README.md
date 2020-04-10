@@ -1,7 +1,18 @@
-# Mypackage
+### to setup dev env:
 
-- badges
+- install dev dependencies:
 
-- what is this
+`pip install -r requirements-init.txt -r requirements.txt`
 
-- why?
+- lauch dev container:
+
+`inv django.setup-dev`
+
+app should be available at http://localhost:6969/rajksimple
+
+- tear down:
+
+`inv django.clean`
+
+### try local build:
+

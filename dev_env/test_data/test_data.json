@@ -1,54 +1,61 @@
 [
 {
-  "model": "mydjangoapp.question",
-  "pk": 1,
+  "model": "rajksimple.account",
+  "pk": "testacc",
   "fields": {
-    "question_text": "Hm?",
-    "pub_date": "2020-01-29T23:55:05Z"
+    "name": "Test Account",
+    "description": "Some fing for testing",
+    "secret_key": "abc",
+    "merchid": "xyz",
+    "order_num": 1,
+    "default_cause": "c2",
+    "submittext": "Bankk\u00e1rty\u00e1s Fizet\u00e9s"
   }
 },
 {
-  "model": "mydjangoapp.question",
-  "pk": 2,
+  "model": "rajksimple.cause",
+  "pk": "c1",
   "fields": {
-    "question_text": "Who's a good boy?",
-    "pub_date": "2020-01-20T13:15:00Z"
+    "name": "Cause 1",
+    "description": "for test without default price",
+    "default_price": null,
+    "account": "testacc"
   }
 },
 {
-  "model": "mydjangoapp.choice",
-  "pk": 1,
+  "model": "rajksimple.cause",
+  "pk": "c2",
   "fields": {
-    "question": 1,
-    "choice_text": "Yes!",
-    "votes": 0
+    "name": "Cause two",
+    "description": "with def price",
+    "default_price": 100,
+    "account": "testacc"
   }
 },
 {
-  "model": "mydjangoapp.choice",
-  "pk": 2,
+  "model": "rajksimple.transaction",
+  "pk": "15816967156800447914",
   "fields": {
-    "question": 1,
-    "choice_text": "42",
-    "votes": 0
+    "cause": "c2",
+    "amount": 100,
+    "email": "fing@fing.com",
+    "repetition": 0,
+    "token": null,
+    "status": "pending",
+    "confirm_date": null
   }
 },
 {
-  "model": "mydjangoapp.choice",
-  "pk": 3,
+  "model": "rajksimple.transaction",
+  "pk": "158169677764515",
   "fields": {
-    "question": 2,
-    "choice_text": "seventeen",
-    "votes": 0
-  }
-},
-{
-  "model": "mydjangoapp.choice",
-  "pk": 4,
-  "fields": {
-    "question": 2,
-    "choice_text": "Billy Ocean",
-    "votes": 100
+    "cause": "c2",
+    "amount": 100,
+    "email": "fing@fing.com",
+    "repetition": 0,
+    "token": null,
+    "status": "pending",
+    "confirm_date": null
   }
 }
 ]
