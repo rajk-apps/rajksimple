@@ -39,3 +39,10 @@ def clean(c):
             c.run(comm)
         except UnexpectedExit:
             print("command failed: {}".format(comm))
+
+
+@task
+def nb(c):
+
+    c.run(f"docker exec -i {package_name}_devcont_1 pip install jupyter")
+    c.run(f"docker exec -i {package_name}_devcont_1 jupyter-notebook --ip=0.0.0.0 --allow-root")
