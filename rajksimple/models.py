@@ -52,7 +52,7 @@ class Transaction(models.Model):
         # (3, "Negyedévente"),
         # (6, "Félévente"),
         # (12, "Évente"),
-    ]
+    # ]
 
     # repetition = models.IntegerField(choices=REPS, default=0)
     token = models.CharField(max_length=200, null=True, blank=True)
