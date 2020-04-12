@@ -153,9 +153,9 @@ def confirm(request):
     postreq["BILL_EMAIL"] = request.POST.get("email", "")
     postreq["ORDER_PRICE[]"] = request.POST.get("amount", "")
 
-    # token = request.POST.get("repetition", "")
-    # if token != "0":
-    #     postreq["LU_ENABLE_TOKEN"] = True
+    token = request.POST.get("repetition", "")
+    if token != "0":
+        postreq["LU_ENABLE_TOKEN"] = True
 
     keylist = [
         "MERCHANT",
