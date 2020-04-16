@@ -45,16 +45,17 @@ class Transaction(models.Model):
     cause = models.ForeignKey(Cause, on_delete=models.DO_NOTHING)
     amount = models.PositiveIntegerField()
     email = models.EmailField()
+    
+    # Évfolyam
+    classOf = models.CharField(max_length=128)
 
-    REPS = MARKUP_CHOICES = [
-        (0, "Egyszeri"),
-        # (1, "Havonta"),
-        # (3, "Negyedévente"),
-        # (6, "Félévente"),
-        # (12, "Évente"),
-    ]
+    # Név
+    firstName = models.CharField(max_length=64)
+    lastName = models.CharField(max_length=64)
 
-    repetition = models.IntegerField(choices=REPS, default=0)
+    # Megjegyzés
+    comment = models.CharField(max_length=128)
+
     token = models.CharField(max_length=200, null=True, blank=True)
 
     STATUSES = [(k, k) for k in ["pending", "confirmed", "denied"]]
@@ -66,7 +67,7 @@ class Transaction(models.Model):
     confirm_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.cause} - {self.amount} - {self.email} - {self.status} - {self.confirm_date}"
+        return f"{self.cause} - {self.amount} - {self.email} - {self.classOf} - {self.status} - {self.confirm_date} - {self.firstName} - {self.lastName} - {self.comment}"
 
 
 class TransactionForm(ModelForm):
@@ -89,11 +90,24 @@ class TransactionForm(ModelForm):
 
     class Meta:
         model = Transaction
-        fields = ["email", "repetition", "cause", "amount"]
+        fields = [
+            "email",
+            "classOf",
+            "firstName",
+            "lastName",
+            "comment", 
+            # "repetition", 
+            "cause", 
+            "amount"
+        ]
 
         labels = {
             "email": ("email cím"),
             "amount": ("összeg"),
             "cause": ("tárgy"),
-            "repetition": ("gyakoriság"),
+            "classOf": ("évfolyam"),
+            "firstName": ("keresztnév"),
+            "lastName": ("családnév"),
+            "comment": ("megjegyzés")
+            # "repetition": ("gyakoriság"),
         }

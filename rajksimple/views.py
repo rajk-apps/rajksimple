@@ -19,6 +19,7 @@ def accountview(request, account_id):
         causes = account_inst.cause_set.all()
         form = TransactionForm(account_id=account_id)
     accounts = Account.objects.get_queryset()
+    
     return render(
         request,
         "rajksimple/account.html",
@@ -152,6 +153,10 @@ def confirm(request):
 
     postreq["BILL_EMAIL"] = request.POST.get("email", "")
     postreq["ORDER_PRICE[]"] = request.POST.get("amount", "")
+    postreq["BILL_COMPANY"] = request.POST.get("classOf", "")
+    postreq["BILL_FNAME"] = request.POST.get("firstName", "")
+    postreq["BILL_LNAME"] = request.POST.get("lastName", "")
+    postreq["BILL_ADDRESS2"] = request.POST.get("comment", "")
 
     token = request.POST.get("repetition", "")
     if token != "0":
@@ -184,7 +189,9 @@ def confirm(request):
     disp = [
         postreq["BILL_EMAIL"],
         str(postreq["ORDER_PRICE[]"]) + " Ft",
-        [x for x in Transaction.REPS if x[0] == int(token)][0][1],
+        # [x for x in Transaction.REPS if x[0] == int(token)][0][1],
+        postreq["BILL_LNAME"],
+        postreq["BILL_FNAME"],
         postreq["ORDER_PNAME[]"],
     ]
 

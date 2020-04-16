@@ -16,7 +16,7 @@
   "model": "rajksimple.cause",
   "pk": "c1",
   "fields": {
-    "name": "Cause 1",
+    "name": "Adomány",
     "description": "for test without default price",
     "default_price": null,
     "account": "testacc"
@@ -26,7 +26,7 @@
   "model": "rajksimple.cause",
   "pk": "c2",
   "fields": {
-    "name": "Cause two",
+    "name": "Tagdíj",
     "description": "with def price",
     "default_price": 100,
     "account": "testacc"
@@ -38,8 +38,11 @@
   "fields": {
     "cause": "c2",
     "amount": 100,
-    "email": "fing@fing.com",
-    "repetition": 0,
+    "email": "fing@example.com",
+    "classOf": "2008",
+    "comment": "Imadom a Rajkot! <3",
+    "firstName": "Endre",
+    "lastName": "Borza",
     "token": null,
     "status": "pending",
     "confirm_date": null
@@ -49,10 +52,13 @@
   "model": "rajksimple.transaction",
   "pk": "158169677764515",
   "fields": {
-    "cause": "c2",
+    "cause": "c1",
     "amount": 100,
-    "email": "fing@fing.com",
-    "repetition": 0,
+    "email": "fing@example.com",
+    "classOf": "2008",
+    "comment": "Imadom az EVK-t is!",
+    "firstName": "Endre",
+    "lastName": "Borza",
     "token": null,
     "status": "pending",
     "confirm_date": null

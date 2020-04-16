@@ -31,27 +31,45 @@
                         <div class="col-6">
                             <ul>
                                 <input type="hidden" name="account" value="{{accinst.id}}">
-                                {% for f in form %}
-                                    {% if forloop.counter < 3 %}
-                                    <li>
-                                        {{f.label_tag }}
-                                        {{ f }}
-                                    </li>
-                                    {% endif %}
-                                {% endfor %}
+                                <li>
+                                    {{form.lastName.label_tag}}
+                                    {{form.lastName}}
+                                    
+                                </li>
+                                <li>
+                                    {{form.email.label_tag}}
+                                    {{form.email}}
+                                </li>
+                                <li>
+                                    {{form.cause.label_tag}}
+                                    {{form.cause}}
+                                </li>
                                 <li></li>
                             </ul>
                         </div>
                         <div class="col-6">
                             <ul>
-                                {% for f in form %}
-                                    {% if forloop.counter >= 3 %}
-                                    <li>
-                                        {{f.label_tag }}
-                                        {{ f }}
-                                    </li>
-                                    {% endif %}
-                                {% endfor %}
+                                <li>
+                                    {{form.firstName.label_tag}}
+                                    {{form.firstName}}
+                                </li>
+                                <li>
+                                    {{form.classOf.label_tag}}
+                                    {{form.classOf}}
+                                </li>
+                                <li>
+                                    {{form.comment.label_tag}}
+                                    {{form.comment}}
+                                </li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="col-12">
+                            <ul>
+                                <li>
+                                    {{form.amount.label_tag}}
+                                    {{form.amount}}
+                                </li>
                                 <li></li>
                             </ul>
                         </div>
