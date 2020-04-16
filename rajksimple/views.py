@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-import hmac
 import datetime
+import hmac
 import random
 
-from .models import *
-from .constants import HOST_ADDRESS
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
+
+from .constants import HOST_ADDRESS
+from .models import Account, Cause, Transaction, TransactionForm
 
 
 def accountview(request, account_id):
@@ -19,7 +20,7 @@ def accountview(request, account_id):
         causes = account_inst.cause_set.all()
         form = TransactionForm(account_id=account_id)
     accounts = Account.objects.get_queryset()
-    
+
     return render(
         request,
         "rajksimple/account.html",

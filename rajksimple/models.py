@@ -45,7 +45,7 @@ class Transaction(models.Model):
     cause = models.ForeignKey(Cause, on_delete=models.DO_NOTHING)
     amount = models.PositiveIntegerField()
     email = models.EmailField()
-    
+
     # Évfolyam
     classOf = models.CharField(max_length=128)
 
@@ -67,7 +67,22 @@ class Transaction(models.Model):
     confirm_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.cause} - {self.amount} - {self.email} - {self.classOf} - {self.status} - {self.confirm_date} - {self.firstName} - {self.lastName} - {self.comment}"
+        return " - ".join(
+            map(
+                str,
+                [
+                    self.cause,
+                    self.amount,
+                    self.email,
+                    self.classOf,
+                    self.status,
+                    self.confirm_date,
+                    self.firstName,
+                    self.lastName,
+                    self.comment,
+                ],
+            )
+        )
 
 
 class TransactionForm(ModelForm):
@@ -95,10 +110,10 @@ class TransactionForm(ModelForm):
             "classOf",
             "firstName",
             "lastName",
-            "comment", 
-            # "repetition", 
-            "cause", 
-            "amount"
+            "comment",
+            # "repetition",
+            "cause",
+            "amount",
         ]
 
         labels = {
