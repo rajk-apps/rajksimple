@@ -46,8 +46,10 @@ def home(request):
 def backref(request, orderid):
 
     acdate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-
-    acc = Transaction.objects.get(id=orderid).cause.account
+    try:
+        acc = Transaction.objects.get(id=orderid).cause.account
+    except Transaction.DoesNotExist:
+        return HttpResponse("No such transaction")
 
     rc = request.GET.get("RC", "cancelled")
 

@@ -47,14 +47,14 @@ class Transaction(models.Model):
     email = models.EmailField()
 
     # Évfolyam
-    classOf = models.CharField(max_length=128)
+    classOf = models.CharField(max_length=128, null=True, blank=True)
 
     # Név
-    firstName = models.CharField(max_length=64)
-    lastName = models.CharField(max_length=64)
+    firstName = models.CharField(max_length=64, null=True, blank=True)
+    lastName = models.CharField(max_length=64, null=True, blank=True)
 
     # Megjegyzés
-    comment = models.CharField(max_length=128)
+    comment = models.CharField(max_length=128, null=True, blank=True)
 
     token = models.CharField(max_length=200, null=True, blank=True)
 
@@ -65,6 +65,8 @@ class Transaction(models.Model):
     )
 
     confirm_date = models.DateTimeField(blank=True, null=True)
+    repetition = models.SmallIntegerField(blank=True, default=0)
+    is_live = models.BooleanField(blank=True, default=False)
 
     def __str__(self):
         return " - ".join(
